@@ -1,0 +1,2 @@
+classpath = build/main/;\
+            build/test/

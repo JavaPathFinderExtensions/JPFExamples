@@ -13,14 +13,14 @@ import java.net.URL;
  */
 public class FileOperation {
 
-    public static void getPage() throws Exception {
+    public static void getPage(String inputUrl) throws Exception {
         // Verify the methods read and write used by the FileChannel of a
         // FileInput/OutputStream
         StringBuilder sb = new StringBuilder();
         BufferedReader br = null;
         try {
 
-            URL url = new URL("https://www.google.com");
+            URL url = new URL(inputUrl);
             br = new BufferedReader(new InputStreamReader(url.openStream()));
 
             String line;
@@ -62,6 +62,6 @@ public class FileOperation {
 
     public static void main(String[] args) throws Exception {
         // Replace link with the HTTP referrer to your website address
-        getPage();
+        getPage("https://www.google.com/");
     }
 }

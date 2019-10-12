@@ -43,7 +43,7 @@
  */
 public class Tsp {
 
-    private static class TspSolver {
+    public static class TspSolver {
         private final int N;
         private int D[][];
         private boolean visited[];

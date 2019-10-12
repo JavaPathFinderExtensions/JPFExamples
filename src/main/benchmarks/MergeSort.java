@@ -75,8 +75,7 @@ public class MergeSort {
         int arr[] = new int[N];
         for (int i = 0; i < N; i++) {
             arr[i] = rand.nextInt(i + 1);
-            MergeSort ob = new MergeSort();
-            ob.sort(arr, 0, arr.length - 1);
         }
+        new MergeSort().sort(arr, 0, arr.length - 1);
     }
 }
