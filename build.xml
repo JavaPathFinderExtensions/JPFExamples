@@ -37,7 +37,7 @@
 <!-- ****************** Starting examples ************************* -->
     <target name="example" depends="compile">     
         <apply executable="java"> 
-            <arg line="-jar ../jpf-core/build/RunJPF.jar"/> 
+            <arg line="-jar ../jpf-core/build/RunJPF.jar -show"/> 
             <fileset dir="${main.src.dir}/examples" includes="*.jpf"/> 
         </apply> 
 
@@ -64,114 +64,22 @@
     </target>
 
 <!-- ****************** Starting benchmarks ************************* -->
+    <target name="benchmark" depends="test-compile">
+        <junit printsummary="on" showoutput="on" haltonfailure="yes"
+               fork="yes" forkmode="perTest" maxmemory="4096m">
 
- <target name="benchmark" depends="compile">
-        <delete file="reports/benchmark.txt"/>
+            <classpath>
+                <path refid="classpath.test"/>
 
-        <echo message="================================================================= Binary Search with 1000 insertions and 1000 search"/>
-        <java dir="." jar="../jpf-core/build/RunJPF.jar" fork="true" maxmemory="4096m">
-            <arg line="${main.src.dir}/benchmarks/BinarySearchTree.jpf 1000"/>
-            <redirector output="reports/benchmark.txt" alwayslog="true" append = "true"/> 
-        </java>
-        <echo message="${line.separator}${line.separator}${line.separator}${line.separator}"/>
+            </classpath>
 
-        <echo message="================================================================= Binary Search with 10000 insertions and 10000 search"/>
-        <java dir="." jar="../jpf-core/build/RunJPF.jar" fork="true" maxmemory="4096m">
-            <arg line="${main.src.dir}/benchmarks/BinarySearchTree.jpf 10000"/>
-            <redirector output="reports/benchmark.txt" alwayslog="true" append = "true"/> 
-        </java>
-        <echo message="${line.separator}${line.separator}${line.separator}${line.separator}"/>
+            <batchtest todir="${test.build.dir}">
+                <fileset dir="${test.build.dir}">
+                <include name="**/*Benchmarks.class"/>
+                </fileset>
+            </batchtest>
 
-        <echo message="================================================================= Binary Search with 100000 insertions and 100000 search"/>
-        <java dir="." jar="../jpf-core/build/RunJPF.jar" fork="true" maxmemory="4096m">
-            <arg line="${main.src.dir}/benchmarks/BinarySearchTree.jpf 100000"/>
-            <redirector output="reports/benchmark.txt" alwayslog="true" append = "true"/>             
-        </java>
-        <echo message="${line.separator}${line.separator}${line.separator}${line.separator}"/>        
-                
-        <echo message="================================================================= Red Black Tree Search with 1000 insertions and 1000 search"/>
-        <java dir="." jar="../jpf-core/build/RunJPF.jar" fork="true" maxmemory="4096m">
-            <arg line="${main.src.dir}/benchmarks/RedBlackTreeSearch.jpf 1000"/>
-            <redirector output="reports/benchmark.txt" alwayslog="true" append = "true"/> 
-        </java>
-        <echo message="${line.separator}${line.separator}${line.separator}${line.separator}"/>
-
-        <echo message="================================================================= Red Black Tree Search with 10000 insertions and 10000 search"/>
-        <java dir="." jar="../jpf-core/build/RunJPF.jar" fork="true" maxmemory="4096m">
-            <arg line="${main.src.dir}/benchmarks/RedBlackTreeSearch.jpf 10000"/>
-            <redirector output="reports/benchmark.txt" alwayslog="true" append = "true"/> 
-        </java>
-        <echo message="${line.separator}${line.separator}${line.separator}${line.separator}"/>
-
-        <echo message="================================================================= Red Black Tree Search with 100000 insertions and 100000 search"/>
-        <java dir="." jar="../jpf-core/build/RunJPF.jar" fork="true" maxmemory="4096m">
-            <arg line="${main.src.dir}/benchmarks/RedBlackTreeSearch.jpf 100000"/>
-            <redirector output="reports/benchmark.txt" alwayslog="true" append = "true"/> 
-        </java>
-        <echo message="${line.separator}${line.separator}${line.separator}${line.separator}"/>
-
-        <echo message="================================================================= Dijkstra with V = 100"/>
-        <java dir="." jar="../jpf-core/build/RunJPF.jar" fork="true" maxmemory="4096m">
-            <arg line="${main.src.dir}/benchmarks/Dijkstra.jpf 100"/>
-            <redirector output="reports/benchmark.txt" alwayslog="true" append = "true"/> 
-        </java>
-        <echo message="${line.separator}${line.separator}${line.separator}${line.separator}"/> 
-
-        <echo message="================================================================= Dijkstra with V = 1000"/>
-        <java dir="." jar="../jpf-core/build/RunJPF.jar" fork="true" maxmemory="4096m">
-            <arg line="${main.src.dir}/benchmarks/Dijkstra.jpf 1000"/>
-            <redirector output="reports/benchmark.txt" alwayslog="true" append = "true"/> 
-        </java>
-        <echo message="${line.separator}${line.separator}${line.separator}${line.separator}"/> 
-
-
-        <echo message="================================================================= BellmanFord with V = 100"/>
-        <java dir="." jar="../jpf-core/build/RunJPF.jar" fork="true" maxmemory="4096m">
-            <arg line="${main.src.dir}/benchmarks/BellmanFord.jpf 100"/>
-            <redirector output="reports/benchmark.txt" alwayslog="true" append = "true"/> 
-        </java>
-        <echo message="${line.separator}${line.separator}${line.separator}${line.separator}"/>
-
-
-        <echo message="================================================================= BellmanFord with V = 1000"/>
-        <java dir="." jar="../jpf-core/build/RunJPF.jar" fork="true" maxmemory="4096m">
-            <arg line="${main.src.dir}/benchmarks/BellmanFord.jpf 1000"/>
-            <redirector output="reports/benchmark.txt" alwayslog="true" append = "true"/> 
-        </java>
-        <echo message="${line.separator}${line.separator}${line.separator}${line.separator}"/>
-
-
-
-        <echo message="================================================================= Tsp with N = 10 "/>
-        <java dir="." jar="../jpf-core/build/RunJPF.jar" fork="true" maxmemory="4096m">
-            <arg line="${main.src.dir}/benchmarks/Tsp.jpf 10"/>
-            <redirector output="reports/benchmark.txt" alwayslog="true" append = "true"/> 
-        </java>
-        <echo message="${line.separator}${line.separator}${line.separator}${line.separator}"/>
-
-        <echo message="================================================================= InsertionSort with N = 1e4 "/>
-        <java dir="." jar="../jpf-core/build/RunJPF.jar" fork="true" maxmemory="4096m">
-            <arg line="${main.src.dir}/benchmarks/InsertionSort.jpf 10000"/>
-            <redirector output="reports/benchmark.txt" alwayslog="true" append = "true"/> 
-        </java>
-        <echo message="${line.separator}${line.separator}${line.separator}${line.separator}"/>
-
-        <echo message="================================================================= InsertionSort with N = 1e5 "/>
-        <java dir="." jar="../jpf-core/build/RunJPF.jar" fork="true" maxmemory="4096m">
-            <arg line="${main.src.dir}/benchmarks/InsertionSort.jpf 100000"/>
-            <redirector output="reports/benchmark.txt" alwayslog="true" append = "true"/> 
-        </java>
-        <echo message="${line.separator}${line.separator}${line.separator}${line.separator}"/>
-
-
-        <echo message="================================================================= MergeSort  with N = 1e3 "/>
-        <java dir="." jar="../jpf-core/build/RunJPF.jar" fork="true" maxmemory="4096m">
-            <arg line="${main.src.dir}/benchmarks/MergeSort.jpf 1000"/>
-            <redirector output="reports/benchmark.txt" alwayslog="true" append = "true"/> 
-        </java>
-        <echo message="${line.separator}${line.separator}${line.separator}${line.separator}"/>
+        </junit>
     </target>
-
-
 
 </project>
