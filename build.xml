@@ -37,7 +37,7 @@
 <!-- ****************** Starting examples ************************* -->
     <target name="example" depends="compile">     
         <apply executable="java"> 
-            <arg line="-jar ../jpf-core/build/RunJPF.jar -show"/> 
+            <arg line="-jar ../jpf-core/build/RunJPF.jar"/> 
             <fileset dir="${main.src.dir}/examples" includes="*.jpf"/> 
         </apply> 
 

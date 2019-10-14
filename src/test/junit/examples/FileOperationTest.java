@@ -12,7 +12,7 @@ public class FileOperationTest extends TestJPF {
     @Test
     public void testGetInvalidUrl() throws Exception {
         if (verifyNoPropertyViolation("src/test/junit/examples/examplesTest.jpf")) {
-            new FileOperation().getPage("aafkjskjfkjsdkf");
+            FileOperation.getPage("aafkjskjfkjsdkf");
         }
     }
 
