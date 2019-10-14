@@ -37,7 +37,7 @@
 <!-- ****************** Starting examples ************************* -->
     <target name="example" depends="compile">     
         <apply executable="java"> 
-            <arg line="-jar ../jpf-core/build/RunJPF.jar -show"/> 
+            <arg line="-jar ../jpf-core/build/RunJPF.jar"/> 
             <fileset dir="${main.src.dir}/examples" includes="*.jpf"/> 
         </apply> 
 
@@ -46,7 +46,7 @@
 
 <!-- ****************** Starting junit tests ************************* -->
     <target name="junit-test" depends="test-compile">
-        <junit printsummary="on" showoutput="on" haltonfailure="yes"
+        <junit printsummary="on" showoutput="on" haltonfailure="no"
                fork="yes" forkmode="perTest" maxmemory="1024m">
 
             <classpath>
@@ -65,7 +65,7 @@
 
 <!-- ****************** Starting benchmarks ************************* -->
     <target name="benchmark" depends="test-compile">
-        <junit printsummary="on" showoutput="on" haltonfailure="yes"
+        <junit printsummary="on" showoutput="on" haltonfailure="no"
                fork="yes" forkmode="perTest" maxmemory="4096m">
 
             <classpath>
