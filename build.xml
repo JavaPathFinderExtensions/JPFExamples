@@ -6,17 +6,21 @@
     <property name="test.src.dir" value="src/test"/>
 
     <path id="classpath.test">
-        <pathelement location="/Users/nyfkxj/ucb_archive/p_org/jpf/apache-ant-1.10.6/lib/junit-4.12.jar"/>
-        <pathelement location="/Users/nyfkxj/ucb_archive/p_org/jpf/apache-ant-1.10.6/lib/hamcrest-core-1.3.jar"/>
+        <pathelement location="./lib/junit-4.12.jar"/>
+        <pathelement location="./lib/hamcrest-core-1.3.jar"/>
         <pathelement location="../jpf-core/build/RunTest.jar"/>
         <pathelement location="../jpf-core/build/jpf.jar"/>
+        <pathelement location="../jpf-core/build/jpf-annotations.jar"/>
         <pathelement location="${main.build.dir}"/>
         <pathelement location="${test.build.dir}"/>
     </path>
 
     <target name="compile">
         <mkdir dir="${main.build.dir}"/>
-        <javac srcdir="${main.src.dir}" destdir="${main.build.dir}" includeantruntime="false"/>
+        <javac srcdir="${main.src.dir}"
+               destdir="${main.build.dir}"
+               classpath="../jpf-core/build/jpf-annotations.jar"
+               includeantruntime="false"/>
     </target>
 
     <target name="test-compile" depends="compile">
